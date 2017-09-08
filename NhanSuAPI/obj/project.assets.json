@@ -12914,11 +12914,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\lpnam\\source\\repos\\NhanSuAPI\\NhanSuAPI\\NhanSuAPI.csproj",
+      "projectUniqueName": "C:\\Users\\lpnam\\Documents\\MANEL\\NhanVienAPI\\NhanSuAPI\\NhanSuAPI.csproj",
       "projectName": "NhanSuAPI",
-      "projectPath": "C:\\Users\\lpnam\\source\\repos\\NhanSuAPI\\NhanSuAPI\\NhanSuAPI.csproj",
+      "projectPath": "C:\\Users\\lpnam\\Documents\\MANEL\\NhanVienAPI\\NhanSuAPI\\NhanSuAPI.csproj",
       "packagesPath": "C:\\Users\\lpnam\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lpnam\\source\\repos\\NhanSuAPI\\NhanSuAPI\\obj\\",
+      "outputPath": "C:\\Users\\lpnam\\Documents\\MANEL\\NhanVienAPI\\NhanSuAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
