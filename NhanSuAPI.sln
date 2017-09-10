@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhanSuAPI", "NhanSuAPI\NhanSuAPI.csproj", "{5FFDA811-D92A-4EFC-87CF-BAA0DA6FA524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiEmployee", "HiEmployee\HiEmployee.csproj", "{90E8841B-0894-4C15-AB3C-9BC7C6D7C525}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhanSuUI", "NhanSuUI\NhanSuUI.csproj", "{ED618609-336E-42DF-9CDB-51267014A693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{5FFDA811-D92A-4EFC-87CF-BAA0DA6FA524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FFDA811-D92A-4EFC-87CF-BAA0DA6FA524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FFDA811-D92A-4EFC-87CF-BAA0DA6FA524}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90E8841B-0894-4C15-AB3C-9BC7C6D7C525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90E8841B-0894-4C15-AB3C-9BC7C6D7C525}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90E8841B-0894-4C15-AB3C-9BC7C6D7C525}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90E8841B-0894-4C15-AB3C-9BC7C6D7C525}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED618609-336E-42DF-9CDB-51267014A693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED618609-336E-42DF-9CDB-51267014A693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED618609-336E-42DF-9CDB-51267014A693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED618609-336E-42DF-9CDB-51267014A693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
