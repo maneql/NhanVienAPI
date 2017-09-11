@@ -1,24 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
-<head ng-app="chucvusApp">
-    <meta charset="utf-8" />
-    <title>NHAN VIEN API</title>
-    <link href="../Content/maincss.css" rel="stylesheet" />
+<head>
+    
+    <meta charset="UTF-8">
+
+    <title>API TEST</title>
+
     <link href="../Content/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../Scripts/angular.min.js"></script>
     <script src="../Scripts/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="../App/chucvuApp.js"></script>
-    <script src="../js/Controllers/chucvuController.js"></script>
-    <script src="../js/Services/chucvuService.js"></script>
+    <script src="app/NhanVienApp.js"></script>
+    <script src="app/controllers/NhanVienController.js"></script>
+    <script src="app/services/NhanVienService.js"></script>
 </head>
-<body id="bordershadow" style="height:800px;" class="container">
+<body ng-app="myapp">
+
     <div class="row">
-        <div ng-view></div>
         <div class="panel panel-primary" ng-init="GetAllChucVu()">
             <div class="panel-heading">
-                <h3 class="panel-title">Existing ChucVu</h3>
+                <h3 class="panel-title">Bang Nhan Vien</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-condensed table-striped table-bordered table-hover no-margin">
@@ -32,9 +34,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in chucvus">
-                            <td>{{item.MA_CV}}</td>
-                            <td>{{item.TEN_CV}}</td>
-                            <td>{{item.LUONG_CV}}</td>
+                            <td>{{item.mA_CV}}</td>
+                            <td>{{item.teN_CV}}</td>
+                            <td>{{item.luonG_CV}}</td>
                             <td>
                                 <!--<input value="Edit" class="btn btn-info" style="width:100px;" ng-click="UpdateProduct(product)" type="button" />-->
                             </td>
@@ -43,7 +45,7 @@
                 </table>
             </div>
         </div>
-
     </div>
+
 </body>
 </html>
