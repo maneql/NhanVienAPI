@@ -25,7 +25,7 @@ namespace FistAPI.Controllers
         public async Task<string> GetNV()
         {
             var nhanviens = await _NVRepository.Get();
-            return "{ \"records\":" + JsonConvert.SerializeObject(nhanviens)+ "}";
+            return JsonConvert.SerializeObject(nhanviens);
         }
 
         [HttpGet("{id}")]
