@@ -3,80 +3,112 @@
 <head>
     <title>Angular Test</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="../Content/css/Style.css" rel="stylesheet" />
 
+    <link href="../Content/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../Scripts/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="../Content/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
     <script src="../App/MyAppDemo.js"></script>
-    
+
+    <script src="../Services/NhanVienService.js"></script>
     <script src="../Controllers/NhanVienController.js"></script>
 
     <script src="../Controllers/ChucVuController.js"></script>
 </head>
 <body ng-app="MyAppDemo">
     <div class="col-lg-12">
-        <div class="row" ng-controller="NhanVienController">
-            <div class="panel-heading">Fillter: <input type="text" ng-model="fNhanVien" /></div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4 class="panel-title">THÔNG TIN NHÂN VIÊN</h4>
+        <div class="container">
+            <div class="row" ng-controller="NhanVienController">
+                <div ng-init="GetAllNhanVien()">
+                    <div class="panel-heading">Tìm nhân viên: <input type="text" ng-model="fNhanVien" /></div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">THÔNG TIN NHÂN VIÊN</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-condensed table-striped table-bordered table-hover no-margin">
+                                <thead>
+                                    <tr>
+                                        <th> Mã nhân viên</th>
+                                        <th> Tên nhân viên</th>
+                                        <th> Mã chức vụ</th>
+                                        <th> Email</th>
+                                        <th> TASK</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="nv in data|filter:fNhanVien">
+                                        <td>{{nv.MA_NV}}</td>
+                                        <td>{{nv.TEN_NV}}</td>
+                                        <td>{{nv.MA_CV}}</td>
+                                        <td>{{nv.EMAIL}}</td>
+                                        <td> <input value="Xóa" class="btn btn-info" style="width:100px;" ng-click="DeleteNhanVien(nv);GetAllNhanVien()" type="button" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="panel-body">
-                    <table class="table table-condensed table-striped table-bordered table-hover no-margin">
-                        <thead>
-                            <tr>
-                                <th> ID</th>
-                                <th> Mã nhân viên</th>
-                                <th> Tên nhân viên</th>
-                                <th> Mã chức vụ</th>
-                                <th> Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="nv in data|filter:fNhanVien">
-                                <td>{{nv.Id}}</td>
-                                <td>{{nv.MA_NV}}</td>
-                                <td>{{nv.TEN_NV}}</td>
-                                <td>{{nv.MA_CV}}</td>
-                                <td>{{nv.EMAIL}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Thêm nhân viên</h3>
+                    </div>
+                    <br />
+                    <div class="panel-body" ng-init="GetAllChucVu()">
+                        <div class="row">
+                            <div class="col-lg-2">Mã NV</div>
+                            <div class="col-lg-4"><input type="text" ng-model="MA_NV" /></div>
+                            <div class="col-lg-2">Tên NV</div>
+                            <div class="col-lg-4"><input type="text" ng-model="TEN_NV"/></div>
+                            <div class="col-lg-2">MA CV</div>
+                            <div class="col-lg-4">
+                                <select ng-model="MA_CV">
+                                    <option ng-repeat="x in chucvus" value="{{x.mA_CV}}">{{x.teN_CV}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">E-MAIL</div>
+                            <div class="col-lg-4"><input type="text" ng-model="EMAIL" /></div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-offset-10">
+                                <input type="button" class="btn btn-info" style="width:80px;" ng-click="AddNhanVien();GetAllNhanVien();" value="Add" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row" ng-controller="ChucVuController">
-            <div class="panel-heading">Fillter: <input type="text" ng-model="fChucVu" /></div>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4 class="panel-title">THÔNG TIN CHỨC VỤ</h4>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-condensed table-striped table-bordered table-hover no-margin">
-                        <thead>
-                            <tr>
-                                <th> ID</th>
-                                <th> Mã chức vụ</th>
-                                <th> Tên chức vụ</th>
-                                <th> Lương chức vụ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="cv in data|filter:fChucVu">
-                                <td>{{cv.id}}</td>
-                                <td>{{cv.mA_CV}}</td>
-                                <td>{{cv.teN_CV}}</td>
-                                <td>{{cv.luonG_CV}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="row" ng-controller="ChucVuController">
+                <div class="panel-heading">Tìm chức vụ: <input type="text" ng-model="fChucVu" /></div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">THÔNG TIN CHỨC VỤ</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed table-striped table-bordered table-hover no-margin">
+                            <thead>
+                                <tr>
+                                    <th> ID</th>
+                                    <th> Mã chức vụ</th>
+                                    <th> Tên chức vụ</th>
+                                    <th> Lương chức vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cv in data|filter:fChucVu">
+                                    <td>{{cv.id}}</td>
+                                    <td>{{cv.mA_CV}}</td>
+                                    <td>{{cv.teN_CV}}</td>
+                                    <td>{{cv.luonG_CV}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
