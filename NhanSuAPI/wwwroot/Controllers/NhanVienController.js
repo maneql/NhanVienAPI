@@ -2,8 +2,7 @@
 
 myApp.controller("NhanVienController", function ($scope, NhanVienService) {
 
-    $scope.data = [];
-    $scope.chucvus = [];
+    
     $scope.GetAllNhanVien = function () {
         NhanVienService.getNV().then(function succes(respone) {
             $scope.data = respone.data;

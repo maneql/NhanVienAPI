@@ -7,8 +7,10 @@
     <link href="../Content/css/bootstrap.min.css" rel="stylesheet" />
     
     <link href="Content/css/Style.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.png" />
 
     <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -26,184 +28,10 @@
 
 </head>
 <body ng-app="MyAppDemo">
-
-
     <div class="col-lg-12">
         <div class="container">
-            <div class="row" ng-controller="NhanVienController" ng-init="GetAllNhanVien();GetAllChucVu();">
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
-                         aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <button type="button" class="close"
-                                            data-dismiss="modal">
-                                        <span aria-hidden="true">&times;</span>
-                                        <span class="sr-only">Close</span>
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">
-                                        Cập nhật thông tin nhân viên
-                                    </h4>
-                                </div>
-                                <!-- Modal Body -->
-                                <div class="modal-body">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Mã nhân viên</label>
-                                            <input type="text" class="form-control" ng-model="uMA_NV" placeholder="Mã nhân viên" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Tên nhân viên</label>
-                                            <input type="text" class="form-control" ng-model="uTEN_NV" placeholder="Tên nhân viên" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Chức vụ</label>
-                                            <select class="form-control" ng-model="uMA_CV">
-                                                <option ng-repeat="cv in chucvus" value="{{cv.mA_CV}}">{{cv.teN_CV}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">E-mail</label>
-                                            <input type="email" class="form-control" ng-model="uEMAIL" placeholder="E-mail"/>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default"
-                                            data-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary" ng-click="UpdateNhanVien()" data-dismiss="modal">
-                                        Save changes
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Modal -->
-                    <div class="panel-heading">Tìm nhân viên: <input type="text" ng-model="fNhanVien" /></div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">THÔNG TIN NHÂN VIÊN</h4>
-                        </div>
-                        <div class="panel-body">
-                            <table class="table table-condensed table-striped table-bordered table-hover no-margin">
-                                <thead>
-                                    <tr>
-                                        <th> Mã nhân viên</th>
-                                        <th> Tên nhân viên</th>
-                                        <th> Mã chức vụ</th>
-                                        <th> Email</th>
-                                        <th> TASK</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="nv in data|filter:fNhanVien">
-                                        <td>{{nv.MA_NV}}</td>
-                                        <td>{{nv.TEN_NV}}</td>
-                                        <td>{{nv.MA_CV}}</td>
-                                        <td>{{nv.EMAIL}}</td>
-                                        <td>
-                                            <div class="col-lg-offset-2">
-                                                <input value="Xóa" class="btn btn-warning" ng-click="DeleteNhanVien(nv.Id,nv.TEN_NV)" type="button" />
-                                                <input value="Sửa" class="btn btn-info" type="button" ng-click="EditNhanVien(nv)" data-toggle="modal" data-target="#myModalNorm" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Thêm nhân viên</h3>
-                    </div>
-                    <br />
-                    <div class="panel-body" >
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="col-lg-3">Mã nhân viên:</div>
-                                <div class="col-lg-9"><div class="col-lg-8"><input class="form-control input-sm" type="text" ng-model="MA_NV" /></div></div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="col-lg-3">Tên nhân viên:</div>
-                                <div class="col-lg-9"><div class="col-lg-8"><input class="form-control input-sm" type="text" ng-model="TEN_NV" /></div></div>
-                            </div>
-                            <div class="col-lg-6" style="margin-top: 10px">
-                                <div class="col-lg-3">Chức vụ:</div>
-                                <div class="col-lg-9">
-                                    <div class="col-lg-8">
-                                        <select class="form-control" ng-model="MA_CV">
-                                            <option ng-repeat="cv in chucvus" value="{{cv.mA_CV}}">{{cv.teN_CV}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6" style="margin-top: 11px">
-                                <div class="col-lg-3">E-mail</div>
-                                <div class="col-lg-9"><div class="col-lg-8"><input class="form-control input-sm" type="text" ng-model="EMAIL" /></div></div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-lg-offset-5">
-                                <input type="button" class="btn btn-success" style="width:80px;" ng-click="AddNhanVien()" value="Thêm" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" ng-controller="ChucVuController">
-                <div class="panel-heading">Tìm chức vụ: <input type="text" ng-model="fChucVu" /></div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">THÔNG TIN CHỨC VỤ</h4>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-condensed table-striped table-bordered table-hover no-margin">
-                            <thead>
-                                <tr>
-                                    <th> ID</th>
-                                    <th> Mã chức vụ</th>
-                                    <th> Tên chức vụ</th>
-                                    <th> Lương chức vụ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="cv in data|filter:fChucVu">
-                                    <td>{{cv.id}}</td>
-                                    <td>{{cv.mA_CV}}</td>
-                                    <td>{{cv.teN_CV}}</td>
-                                    <td>{{cv.luonG_CV}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <div ng-view></div>
         </div>
     </div> 
-    
-    <script>
-        $('#modal-from-dom').on('show', function () {
-            var id = $(this).data('id'),
-                removeBtn = $(this).find('.danger');
-
-            removeBtn.attr('href', removeBtn.attr('href').replace(/(&|\?)ref=\d*/, '$1ref=' + id));
-
-            $('#debug-url').html('Delete URL: <strong>' + removeBtn.attr('href') + '</strong>');
-        });
-
-        $('.confirm-delete').on('click', function (e) {
-            e.preventDefault();
-
-            var id = $(this).data('id');
-            $('#modal-from-dom').data('id', id).modal('show');
-        });
-    </script>
 </body>
 </html>

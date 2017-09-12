@@ -1,0 +1,29 @@
+﻿<button type="button" class="btn btn-danger" onclick="window.location.href='#!/'">Trở về</button>
+<div class="row">
+    <div class="panel-heading">Tìm chức vụ: <input type="text" ng-model="fChucVu" /></div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">THÔNG TIN CHỨC VỤ</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-condensed table-striped table-bordered table-hover no-margin">
+                <thead>
+                    <tr>
+                        <th> ID</th>
+                        <th> Mã chức vụ</th>
+                        <th> Tên chức vụ</th>
+                        <th> Lương chức vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="cv in data|filter:fChucVu">
+                        <td>{{cv.id}}</td>
+                        <td>{{cv.mA_CV}}</td>
+                        <td>{{cv.teN_CV}}</td>
+                        <td>{{cv.luonG_CV}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
