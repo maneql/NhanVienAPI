@@ -43,15 +43,13 @@ namespace FistAPI.Controllers
         [HttpPost]
         public async Task<string> Post([FromBody] NhanVien nhanvien)
         {
-            await _NVRepository.Add(nhanvien);
-            return "";
+            return JsonConvert.SerializeObject(await _NVRepository.Add(nhanvien));
         }
 
-        [HttpPut("{id}")]
-        public async Task<string> Put(string id, [FromBody] NhanVien nhanvien)
+        [HttpPut]
+        public async Task<string> Put([FromBody] NhanVien nhanvien)
         {
-            if (string.IsNullOrEmpty(id)) return "Invalid id !!!";
-            return await _NVRepository.Update(id, nhanvien);
+            return JsonConvert.SerializeObject(await _NVRepository.Update(nhanvien));
         }
 
         [HttpDelete("{id}")]

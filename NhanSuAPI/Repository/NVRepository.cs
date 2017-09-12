@@ -20,9 +20,11 @@ namespace FistAPI.Repository
             _context = new ObjectContext(settings);
         }
 
-        public async Task Add(NhanVien nhanvien)
+        public async Task<NhanVien> Add(NhanVien nhanvien)
         {
             await _context.NhanViens.InsertOneAsync(nhanvien);
+            var nhanvienadd = Builders<NhanVien>.Filter.Eq("Id", nhanvien.Id);
+            return await _context.NhanViens.Find(nhanvienadd).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<NhanVien>> Get()
@@ -38,7 +40,7 @@ namespace FistAPI.Repository
 
         public async Task<DeleteResult> Remove(string id)
         {
-            return await _context.NhanViens.DeleteOneAsync(Builders<NhanVien>.Filter.Eq("MA_NV", id));
+            return await _context.NhanViens.DeleteOneAsync(Builders<NhanVien>.Filter.Eq("Id", id));
         }
 
         public async Task<DeleteResult> RemoveAll()
@@ -46,10 +48,10 @@ namespace FistAPI.Repository
             return await _context.NhanViens.DeleteManyAsync(new BsonDocument());
         }
 
-        public async Task<string> Update(string id, NhanVien nhanVien)
+        public async Task<NhanVien> Update(NhanVien nhanVien)
         {
-            await _context.NhanViens.ReplaceOneAsync(zz => zz.MA_NV == id, nhanVien);
-            return "";
+            await _context.NhanViens.ReplaceOneAsync(zz => zz.Id == nhanVien.Id, nhanVien);
+            return nhanVien;
         }
     }
 }

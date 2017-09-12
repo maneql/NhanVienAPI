@@ -8,6 +8,7 @@
         });
         return request;
     };
+
     var addNhanVien = function (nhanvien) {
         var request = $http({
             method: 'POST',
@@ -19,12 +20,23 @@
         return request;
     };
 
-    var deleteNhanVien = function (ma) {
+    var updateNhanVien = function (_nhanvien) {
+        var request = $http({
+            method: 'PUT',
+            cache: false,
+            url: HostAPI + 'api/NhanVien',
+            data: _nhanvien
+        });
+        return request;
+    };
+
+    var deleteNhanVien = function (id) {
         var request = $http({
             method: "DELETE",
             cache: false,
-            url: HostAPI + 'api/NhanVien/' + ma
+            url: HostAPI + 'api/NhanVien/' + id
         });
+        return request;
     };
 
     var getCVu = function () {
@@ -40,6 +52,7 @@
         getNV: getAllNhanVien,
         addNV: addNhanVien,
         deleteNV: deleteNhanVien,
+        updateNV: updateNhanVien,
         getCV: getCVu
     };
 });

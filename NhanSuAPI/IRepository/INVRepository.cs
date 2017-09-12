@@ -11,8 +11,8 @@ namespace FistAPI.IRepository
     {
         Task<IEnumerable<NhanVien>> Get();
         Task<NhanVien> Get(string id);
-        Task Add(NhanVien nhanvien);
-        Task<string> Update(string id, NhanVien nhanVien);
+        Task<NhanVien> Add(NhanVien nhanvien);
+        Task<NhanVien> Update(NhanVien nhanVien);
         Task<DeleteResult> Remove(string id);
         Task<DeleteResult> RemoveAll();
     }
