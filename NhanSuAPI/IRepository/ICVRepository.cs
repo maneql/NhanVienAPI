@@ -7,15 +7,15 @@ using MongoDB.Driver;
 
 namespace NhanSuAPI.IRepository
 {
-    public interface INVRepository
+    public interface ICVRepository
     {
-        Task<IEnumerable<NhanVien>> Get();
+        Task<IEnumerable<ChucVu>> Get();
 
-        Task<NhanVien> Get(string id);
+        Task<ChucVu> Get(string id);
 
-        Task<NhanVien> Add(NhanVien nhanvien);
+        Task<ChucVu> Add(ChucVu chucvu);
 
-        Task<NhanVien> Update(NhanVien nhanVien);
+        Task<ChucVu> Update(ChucVu chucvu);
 
         Task<DeleteResult> Remove(string id);
 

@@ -1,100 +1,64 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using FistAPI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using NhanSuAPI.Models;
 using MongoDB.Driver;
+using NhanSuAPI.IRepository;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
-
-namespace FistAPI.Controllers
+namespace NhanSuAPI.Controllers
 {
     [Route("api/[controller]")]
     public class ChucVuController : Controller
     {
-        MongoClientSettings settings = new MongoClientSettings();
-        MongoServerAddress address = new MongoServerAddress("localhost", 27017);
-        MongoClient client;
-        private string DBName = "QLNHANVIEN";
+        private readonly ICVRepository _CVRepository;
 
-        public ChucVuController()
+        public ChucVuController(ICVRepository CVRepository)
         {
-            settings.Server = address;
-            client = new MongoClient();
+            _CVRepository = CVRepository;
         }
 
-
-        [HttpGet(Name = "GetAllCV")]
-        public IEnumerable<ChucVu> GetAll()
+        [HttpGet]
+        public Task<string> Get()
         {
-            var db = client.GetDatabase(DBName);
-            var collection = db.GetCollection<ChucVu>("CHUC_VU");
-            var qr = collection.AsQueryable<ChucVu>().ToList();
-            return qr;
+            return this.GetCV();
         }
 
-
-        [HttpGet("{ma}", Name = "GetChucVu")]
-        public IActionResult GetById(string ma)
+        public async Task<string> GetCV()
         {
-            var db = client.GetDatabase(DBName);
-            var collection = db.GetCollection<ChucVu>("CHUC_VU");
-            var query = collection.AsQueryable<ChucVu>().ToList();
-            var result = query.FirstOrDefault(c => c.MA_CV == ma);
-            return new ObjectResult(result);
+            var chucvus = await _CVRepository.Get();
+            return JsonConvert.SerializeObject(chucvus);
         }
 
+        [HttpGet("{id}")]
+        public Task<string> Get(string id)
+        {
+            return this.GetCVById(id);
+        }
+
+        public async Task<string> GetCVById(string id)
+        {
+            var chucvu = await _CVRepository.Get(id) ?? new ChucVu();
+            return JsonConvert.SerializeObject(chucvu);
+        }
 
         [HttpPost]
-        public IActionResult Create([FromBody]ChucVu item)
+        public async Task<string> Create([FromBody]ChucVu chucvu)
         {
-            if (item == null)
-            {
-                return BadRequest();
-            }
-
-            var db = client.GetDatabase(DBName);
-            var collection = db.GetCollection<ChucVu>("CHUC_VU");
-
-            collection.InsertOne(item);
-
-            return new ObjectResult(item);
+            return JsonConvert.SerializeObject(await _CVRepository.Add(chucvu));
         }
 
 
         [HttpPut]
-        public IActionResult Update([FromBody]ChucVu item)
+        public async Task<string> Update([FromBody]ChucVu item)
         {
-            if (item == null || item.MA_CV != item.MA_CV)
-            {
-                return BadRequest();
-            }
-
-            var db = client.GetDatabase(DBName);
-            var collection = db.GetCollection<ChucVu>("CHUC_VU");
-            var query = collection.AsQueryable<ChucVu>().ToList();
-            var result = query.FirstOrDefault(c => c.MA_CV == item.MA_CV);
-            if (result == null)
-            {
-                return NotFound();
-            }
-
-            var filter = Builders<ChucVu>.Filter.Eq("MA_CV", item.MA_CV);
-            var update = Builders<ChucVu>.Update.Set(s => s.TEN_CV, item.TEN_CV).Set(s => s.LUONG_CV, item.LUONG_CV);
-
-            collection.UpdateOne(filter, update);
-
-            return CreatedAtRoute("GetChucVu", new { ma = item.MA_CV }, item);
+            return JsonConvert.SerializeObject(await _CVRepository.Update(item));
         }
 
 
-        [HttpDelete("{ma}")]
-        public IActionResult Delete(string ma)
+        [HttpDelete("{id}")]
+        public async Task<DeleteResult> Remove(string id)
         {
-            var db = client.GetDatabase(DBName);
-            var collection = db.GetCollection<ChucVu>("CHUC_VU");
-            var filter = Builders<ChucVu>.Filter.Eq("MA_CV", ma);
-            collection.DeleteOne(filter);
-            var query = collection.AsQueryable<ChucVu>().ToList();
-            return CreatedAtRoute("GetAllCV", query);
+            return await _CVRepository.Remove(id);
         }
     }
 }

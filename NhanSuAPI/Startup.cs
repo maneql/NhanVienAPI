@@ -1,6 +1,6 @@
-﻿using FistAPI.DbModels;
-using FistAPI.IRepository;
-using FistAPI.Repository;
+﻿using NhanSuAPI.DbModels;
+using NhanSuAPI.IRepository;
+using NhanSuAPI.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +29,7 @@ namespace NhanSuAPI
             services.AddMvc();
             services.Configure<Settings>(o => { o.iConfigurationRoot = Configuration; });
             services.AddTransient<INVRepository, NVRepository>();
+            services.AddTransient<ICVRepository, CVRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

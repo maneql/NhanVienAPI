@@ -1,10 +1,12 @@
 ﻿myApp.service('NhanVienService', function ($http) {
 
+    var ServiceAPI = 'api/NhanVien/';
+
     var getAllNhanVien = function () {
         var request = $http({
             method: 'GET',
             cache: false,
-            url: HostAPI + 'api/NhanVien'
+            url: HostAPI + ServiceAPI
         });
         return request;
     };
@@ -13,7 +15,7 @@
         var request = $http({
             method: 'POST',
             cache: false,
-            url: HostAPI + 'api/NhanVien',
+            url: HostAPI + ServiceAPI,
             data: nhanvien
         });
 
@@ -24,7 +26,7 @@
         var request = $http({
             method: 'PUT',
             cache: false,
-            url: HostAPI + 'api/NhanVien',
+            url: HostAPI + ServiceAPI,
             data: _nhanvien
         });
         return request;
@@ -34,7 +36,7 @@
         var request = $http({
             method: "DELETE",
             cache: false,
-            url: HostAPI + 'api/NhanVien/' + id
+            url: HostAPI + ServiceAPI + id
         });
         return request;
     };
@@ -43,7 +45,7 @@
         var request = $http({
             method: "GET",
             cache: false,
-            url: HostAPI + 'api/ChucVu'
+            url: "api/ChucVu"
         });
         return request;
     };

@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace FistAPI.Models
+namespace NhanSuAPI.Models
 {
     public class NhanVien
     {

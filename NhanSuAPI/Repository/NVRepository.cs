@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FistAPI.DbModels;
+using NhanSuAPI.DbModels;
 using Microsoft.Extensions.Options;
-using FistAPI.IRepository;
-using FistAPI.Models;
+using NhanSuAPI.IRepository;
+using NhanSuAPI.Models;
 using MongoDB.Driver;
 using MongoDB.Bson;
 
-namespace FistAPI.Repository
+namespace NhanSuAPI.Repository
 {
     public class NVRepository : INVRepository
     {
@@ -23,8 +23,7 @@ namespace FistAPI.Repository
         public async Task<NhanVien> Add(NhanVien nhanvien)
         {
             await _context.NhanViens.InsertOneAsync(nhanvien);
-            var nhanvienadd = Builders<NhanVien>.Filter.Eq("Id", nhanvien.Id);
-            return await _context.NhanViens.Find(nhanvienadd).FirstOrDefaultAsync();
+            return nhanvien;
         }
 
         public async Task<IEnumerable<NhanVien>> Get()
@@ -34,7 +33,7 @@ namespace FistAPI.Repository
 
         public async Task<NhanVien> Get(string id)
         {
-            var nhanvien = Builders<NhanVien>.Filter.Eq("MA_NV", id);
+            var nhanvien = Builders<NhanVien>.Filter.Eq("Id", id);
             return await _context.NhanViens.Find(nhanvien).FirstOrDefaultAsync();
         }
 

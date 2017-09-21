@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Extensions.Configuration;
 
-namespace FistAPI.DbModels
+namespace NhanSuAPI.DbModels
 {
     public class Settings
     {

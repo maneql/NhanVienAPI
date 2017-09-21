@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
-using FistAPI.Models;
+using NhanSuAPI.Models;
 
-namespace FistAPI.DbModels
+namespace NhanSuAPI.DbModels
 {
     public class ObjectContext
     {
@@ -32,6 +32,22 @@ namespace FistAPI.DbModels
             get
             {
                 return _database.GetCollection<NhanVien>("NHAN_VIEN");
+            }
+        }
+
+        public IMongoCollection<ChucVu> ChucVus
+        {
+            get
+            {
+                return _database.GetCollection<ChucVu>("CHUC_VU");
+            }
+        }
+
+        public IMongoCollection<ChucVuV2> ChucVuV2s
+        {
+            get
+            {
+                return _database.GetCollection<ChucVuV2>("CHUC_VU2");
             }
         }
     }

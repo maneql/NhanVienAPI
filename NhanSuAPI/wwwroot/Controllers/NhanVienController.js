@@ -1,8 +1,5 @@
-﻿
+﻿myApp.controller("NhanVienController", function ($scope, NhanVienService) {
 
-myApp.controller("NhanVienController", function ($scope, NhanVienService) {
-
-    
     $scope.GetAllNhanVien = function () {
         NhanVienService.getNV().then(function succes(respone) {
             $scope.data = respone.data;
@@ -48,13 +45,15 @@ myApp.controller("NhanVienController", function ($scope, NhanVienService) {
         };
     };
 
-    $scope.EditNhanVien = function (nhanvien) {
+    $scope.EditNhanVien = function (nhanvien,index) {
         //debugger;
         $scope.uId = nhanvien.Id;
         $scope.uMA_NV = nhanvien.MA_NV;
         $scope.uTEN_NV = nhanvien.TEN_NV;
         $scope.uMA_CV = nhanvien.MA_CV;
         $scope.uEMAIL = nhanvien.EMAIL;
+
+        $scope.Index = index;
     };
 
     $scope.UpdateNhanVien = function () {
@@ -66,41 +65,20 @@ myApp.controller("NhanVienController", function ($scope, NhanVienService) {
             EMAIL: $scope.uEMAIL
         };
         NhanVienService.updateNV(_nhanvien).then(function succes() {
-            var index = -1;
-            var DataArr = eval($scope.data);
-            for (var i = 0; i < DataArr.length; i++) {
-                if (DataArr[i].Id === $scope.uId) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index === -1) {
-                alert("Something gone wrong");
-            }
-            $scope.data[index] = _nhanvien;
+            $scope.data[$scope.Index] = _nhanvien;
         }, function error() { }
         );
     };
 
-    $scope.DeleteNhanVien = function (id, ten) {
+    $scope.DeleteNhanVien = function (index) {
         //debugger;
+        var nhanvien = $scope.data[index];
         bootbox.confirm({
             size: "small",
-            message: "Xóa nhân viên: " + ten + " ??",
+            message: "Xóa nhân viên: " + nhanvien.TEN_NV + " ??",
             callback: function (result) {
                 if (result === true) {
-                    NhanVienService.deleteNV(id).then(function succes() {
-                        var index = -1;
-                        var DataArr = eval($scope.data);
-                        for (var i = 0; i < DataArr.length; i++) {
-                            if (DataArr[i].Id === id) {
-                                index = i;
-                                break;
-                            }
-                        }
-                        if (index === -1) {
-                            alert("Something gone wrong");
-                        }
+                    NhanVienService.deleteNV(nhanvien.Id).then(function succes(respone) {
                         $scope.data.splice(index, 1);
                     });
                 }

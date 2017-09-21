@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using FistAPI.Models;
-using FistAPI.IRepository;
+using NhanSuAPI.Models;
+using NhanSuAPI.IRepository;
 using Newtonsoft.Json;
+using MongoDB.Driver;
 
-namespace FistAPI.Controllers
+namespace NhanSuAPI.Controllers
 {
     [Route("api/[controller]")]
     public class NhanVienController : Controller
@@ -53,11 +54,9 @@ namespace FistAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<string> Delete(string id)
+        public async Task<DeleteResult> Delete(string id)
         {
-            if (string.IsNullOrEmpty(id)) return "Invalid id !!!";
-            await _NVRepository.Remove(id);
-            return "";
+            return await _NVRepository.Remove(id);
         }
 
     }

@@ -1,5 +1,5 @@
 ﻿<button type="button" class="btn btn-danger" onclick="window.location.href='#!/'">Trở về</button>
-<div class="row">
+<div class="row" ng-init="GetAllChucVu()">
     <div class="panel-heading">Tìm chức vụ: <input type="text" ng-model="fChucVu" /></div>
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -17,10 +17,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="cv in data|filter:fChucVu">
-                        <td>{{cv.id}}</td>
-                        <td>{{cv.mA_CV}}</td>
-                        <td>{{cv.teN_CV}}</td>
-                        <td>{{cv.luonG_CV}}</td>
+                        <td>{{cv.Id}}</td>
+                        <td>{{cv.MA_CV}}</td>
+                        <td>{{cv.TEN_CV}}</td>
+                        <td>{{cv.LUONG_CV}}</td>
                     </tr>
                 </tbody>
             </table>
