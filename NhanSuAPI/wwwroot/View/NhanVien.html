@@ -75,7 +75,7 @@
                         <td>{{$index}}</td>
                         <td>{{nv.MA_NV}}</td>
                         <td>{{nv.TEN_NV}}</td>
-                        <td>{{nv.MA_CV}}</td>
+                        <td>{{(chucvus | filter:{'MA_CV': nv.MA_CV}:true)[0].TEN_CV}}</td>
                         <td>{{nv.EMAIL}}</td>
                         <td>
                             <div class="col-lg-offset-2">
