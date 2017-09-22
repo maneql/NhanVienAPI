@@ -1,6 +1,6 @@
-﻿myApp.controller("ChucVuController", function ($scope, ChucVuService) {
+﻿﻿myApp.controller("ChucVuController", function ($scope, ChucVuService) {
 
-    $scope.GetAllChucVu = function () {
+    $scope.GetAllChucVus = function () {
         ChucVuService.getAllCV().then(function succes(respone) {
             $scope.data = respone.data;
         }, function error(respone) {
@@ -32,35 +32,42 @@
         };
     };
 
-    $scope.EditChucVu = function (chucvu) {
+    $scope.EditChucVu = function (chucvu,index) {
         $scope.uId = chucvu.Id;
-        $scope.uMA_CV = chucvu.MA_NV;
-        $scope.uTEN_CV = chucvu.TEN_NV;
-        $scope.uLUONG_CV = chucvu.MA_CV;
+        $scope.uMA_CV = chucvu.MA_CV;
+        $scope.uTEN_CV = chucvu.TEN_CV;
+        $scope.uLUONG_CV = chucvu.LUONG_CV;
+
+        $scope.Indexs = index;
     };
 
     $scope.UpdateChucVu = function () {
         var chucvu = {
             Id: $scope.uId,
             MA_CV: $scope.uMA_CV,
-            TEN_CV: $scope.uTEN_NV,
-            LUONG_CV: $scope.uMA_CV
+            TEN_CV: $scope.uTEN_CV,
+            LUONG_CV: $scope.uLUONG_CV
         };
         ChucVuService.updateCV(chucvu).then(function succes() {
-            var index = -1;
-            var DataArr = eval($scope.data);
-            for (var i = 0; i < DataArr.length; i++) {
-                if (DataArr[i].Id === $scope.uId) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index === -1) {
-                alert("Something gone wrong");
-            }
-            $scope.data[index] = chucvu;
+            $scope.data[$scope.Indexs] = chucvu;
         }, function error() { }
         );
+    };
+
+    $scope.RemoveChucVu = function (index) {
+        //debugger;
+        var chucvu = $scope.data[index];
+        bootbox.confirm({
+            size: "small",
+            message: "Xóa chức vụ: " + chucvu.TEN_CV + " ??",
+            callback: function (result) {
+                if (result === true) {
+                    ChucVuService.deleteChucVu(chucvu.Id).then(function succes(respone) {
+                        $scope.data.splice(index, 1);
+                    });
+                }
+            }
+        });
     };
 
 });

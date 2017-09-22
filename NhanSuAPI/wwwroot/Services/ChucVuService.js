@@ -1,4 +1,4 @@
-﻿myApp.service('ChucVuService', function ($http) {
+﻿﻿myApp.service('ChucVuService', function ($http) {
 
     var ServiceAPI = 'api/ChucVu/';
 
@@ -28,6 +28,7 @@
             url: HostAPI + ServiceAPI,
             data: chucvu
         });
+        return request;
     };
 
     var deleteChucVu = function (id) {
@@ -36,6 +37,7 @@
             cache: false,
             url: HostAPI + ServiceAPI + id,
         });
+        return request;
     };
 
     return {

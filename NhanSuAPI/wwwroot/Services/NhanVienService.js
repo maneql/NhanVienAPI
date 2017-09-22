@@ -18,7 +18,6 @@
             url: HostAPI + ServiceAPI,
             data: nhanvien
         });
-
         return request;
     };
 
@@ -34,7 +33,7 @@
 
     var deleteNhanVien = function (id) {
         var request = $http({
-            method: "DELETE",
+            method: 'DELETE',
             cache: false,
             url: HostAPI + ServiceAPI + id
         });
@@ -43,9 +42,9 @@
 
     var getCVu = function () {
         var request = $http({
-            method: "GET",
+            method: 'GET',
             cache: false,
-            url: "api/ChucVu"
+            url: HostAPI + 'api/ChucVu'
         });
         return request;
     };
