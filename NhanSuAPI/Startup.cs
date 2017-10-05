@@ -27,6 +27,7 @@ namespace NhanSuAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors();
             services.Configure<Settings>(o => { o.iConfigurationRoot = Configuration; });
             services.AddTransient<INVRepository, NVRepository>();
             services.AddTransient<ICVRepository, CVRepository>();
@@ -48,6 +49,12 @@ namespace NhanSuAPI
             }
 
             app.UseStaticFiles();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseMvc(routes =>
             {

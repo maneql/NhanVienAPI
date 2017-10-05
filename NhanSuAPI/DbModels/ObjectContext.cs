@@ -43,12 +43,5 @@ namespace NhanSuAPI.DbModels
             }
         }
 
-        public IMongoCollection<ChucVuV2> ChucVuV2s
-        {
-            get
-            {
-                return _database.GetCollection<ChucVuV2>("CHUC_VU2");
-            }
-        }
     }
 }
